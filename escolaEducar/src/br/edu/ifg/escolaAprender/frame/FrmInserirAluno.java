@@ -5,6 +5,13 @@
  */
 package br.edu.ifg.escolaAprender.frame;
 
+import br.edu.ifg.escolaAprender.vo.Aluno;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
+
 /**
  *
  * @author gilberto
@@ -17,7 +24,22 @@ public class FrmInserirAluno extends javax.swing.JFrame {
     public FrmInserirAluno() {
         initComponents();
         setLocationRelativeTo(null);
-        
+        List<Aluno> alunos = new ArrayList<>();
+        alunos.add(new Aluno(1, "Joao", null, null, null));
+        alunos.add(new Aluno(1, "Pedro", null, null, null));
+        alunos.add(new Aluno(1, "Rodrigo", null, null, null));
+        ListModel<Aluno> model = new AbstractListModel<Aluno>() {
+            @Override
+            public int getSize() {
+                return alunos.size();
+            }
+
+            @Override
+            public Aluno getElementAt(int index) {
+                return alunos.get(index);
+            }
+        };
+        jList1.setModel(model);
     }
 
     /**
@@ -40,21 +62,16 @@ public class FrmInserirAluno extends javax.swing.JFrame {
 
         setTitle("Selecionar Aluno");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(jList1);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(jList2);
 
         jButton1.setText("Inserir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Excluir");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -84,18 +101,18 @@ public class FrmInserirAluno extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(22, 22, 22)
-                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jButton5, javax.swing.GroupLayout.Alignment.TRAILING))))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(198, 198, 198))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,10 +125,11 @@ public class FrmInserirAluno extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addComponent(jButton2)
                         .addGap(29, 29, 29)
-                        .addComponent(jButton5))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addComponent(jButton5)
+                        .addGap(0, 73, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2))
+                .addGap(12, 12, 12)
                 .addComponent(jButton3)
                 .addContainerGap())
         );
@@ -126,6 +144,22 @@ public class FrmInserirAluno extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        List<Aluno> alunosSelecionados = jList1.getSelectedValuesList();
+        ListModel<Aluno> model = new AbstractListModel<Aluno>() {
+            @Override
+            public int getSize() {
+                return alunosSelecionados.size();
+            }
+
+            @Override
+            public Aluno getElementAt(int index) {
+                return alunosSelecionados.get(index);
+            }
+        };
+        jList2.setModel(model);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,8 +201,8 @@ public class FrmInserirAluno extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<Aluno> jList1;
+    private javax.swing.JList<Aluno> jList2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables

@@ -26,5 +26,11 @@ public class Professor extends Funcionario {
     public void setAreaEspecializacao(String areaEspecializacao) {
         this.areaEspecializacao = areaEspecializacao;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
+    
     
 }
