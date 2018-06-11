@@ -6,6 +6,7 @@
 package br.edu.ifg.escolaAprender.vo;
 
 import java.util.ArrayList;
+import javax.xml.crypto.Data;
 
 /**
  *
@@ -13,11 +14,23 @@ import java.util.ArrayList;
  */
 public class Disciplina {
     
+    private int codigo;
     private String nome;
     private Professor professor;
     private ArrayList<Aluno> aluno;
     private int semestre;
     private int ano;
+    
+    public Disciplina(){}
+    
+    public Disciplina(String nome, Professor prof, ArrayList<Aluno> aluno, int semestre, int ano){
+        this.nome = nome;
+        this.professor = prof;
+        this.aluno = aluno;
+        this.semestre = semestre;
+        this.ano = ano;
+    }
+    
 
     /**
      * @return the nome
@@ -87,6 +100,20 @@ public class Disciplina {
      */
     public void setAno(int ano) {
         this.ano = ano;
+    }
+
+    /**
+     * @return the codigo
+     */
+    public int getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
     
 }

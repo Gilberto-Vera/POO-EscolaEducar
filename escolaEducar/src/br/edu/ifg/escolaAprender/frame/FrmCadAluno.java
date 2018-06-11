@@ -58,6 +58,12 @@ public class FrmCadAluno extends javax.swing.JFrame {
 
         lbCodAluno.setText("Código:");
 
+        tfCodAluno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfCodAlunoKeyTyped(evt);
+            }
+        });
+
         lbNomeAluno.setText("Nome:");
 
         lbDataNascAluno.setText("Data de Nascimento:");
@@ -190,6 +196,12 @@ public class FrmCadAluno extends javax.swing.JFrame {
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         limparCampos();
     }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void tfCodAlunoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCodAlunoKeyTyped
+        if(!Character.isDigit(evt.getKeyChar())){
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfCodAlunoKeyTyped
 
     /**
      * @param args the command line arguments

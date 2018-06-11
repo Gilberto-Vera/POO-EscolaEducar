@@ -5,6 +5,14 @@
  */
 package br.edu.ifg.escolaAprender.frame;
 
+import br.edu.ifg.escolaAprender.util.BancoDeDados;
+import br.edu.ifg.escolaAprender.vo.Funcionario;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author gilberto
@@ -33,12 +41,6 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
         dataNascFunc = new javax.swing.JLabel();
         respFunc = new javax.swing.JLabel();
         campCodFunc = new javax.swing.JTextField();
-        try{
-            javax.swing.text.MaskFormatter cod= new javax.swing.text.MaskFormatter("#####");
-            campCodFunc = new javax.swing.JFormattedTextField(cod);
-        }
-        catch (Exception e){
-        }
         campNomeFunc = new javax.swing.JTextField();
         campDataNascFunc = new javax.swing.JTextField();
         try{
@@ -65,11 +67,27 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
 
         respFunc.setText("Endereço:");
 
+        campCodFunc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campCodFuncKeyTyped(evt);
+            }
+        });
+
         salvar.setText("Salvar");
         salvar.setMaximumSize(new java.awt.Dimension(60, 30));
         salvar.setMinimumSize(new java.awt.Dimension(60, 30));
+        salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarActionPerformed(evt);
+            }
+        });
 
-        cancelar.setText("Cancelar");
+        cancelar.setText("Limpar");
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarActionPerformed(evt);
+            }
+        });
 
         setorFunc.setText("Setor:");
 
@@ -87,18 +105,9 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(campNomeFunc))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(dataNascFunc)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campDataNascFunc))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(respFunc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(campEndFunc))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(codFunc)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campCodFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
@@ -110,7 +119,18 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(fucaoFunc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campFuncao)))
+                        .addComponent(campFuncao))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(codFunc)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campCodFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(dataNascFunc)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campDataNascFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -149,6 +169,40 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
+        
+        Funcionario funcionario = new Funcionario();
+        
+        String nome = campNomeFunc.getText();
+            
+        SimpleDateFormat formatData = new SimpleDateFormat("dd/mm/yyyy");
+        
+        funcionario.setCodigo(Integer.parseInt(campCodFunc.getText()));
+        funcionario.setNome(campNomeFunc.getText());
+        try {
+            funcionario.setDataNascimento(formatData.parse(campDataNascFunc.getText()));
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmCadAluno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        funcionario.setEndereco(campEndFunc.getText());
+        funcionario.setSetor(campSetor.getText());
+        funcionario.setFuncao(campFuncao.getText());
+        BancoDeDados.adicionarFuncionarios(funcionario);
+        limparCampos();
+        JOptionPane.showMessageDialog(rootPane, nome + " adicionado com sucesso!");
+        
+    }//GEN-LAST:event_salvarActionPerformed
+
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_cancelarActionPerformed
+
+    private void campCodFuncKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campCodFuncKeyTyped
+        if(!Character.isDigit(evt.getKeyChar())){
+            evt.consume();
+        }
+    }//GEN-LAST:event_campCodFuncKeyTyped
 
     /**
      * @param args the command line arguments
@@ -204,4 +258,13 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton salvar;
     private javax.swing.JLabel setorFunc;
     // End of variables declaration//GEN-END:variables
+
+    private void limparCampos() {
+        campCodFunc.setText("");
+        campNomeFunc.setText("");
+        campDataNascFunc.setText("");
+        campEndFunc.setText("");
+        campSetor.setText("");
+        campFuncao.setText("");
+    }
 }

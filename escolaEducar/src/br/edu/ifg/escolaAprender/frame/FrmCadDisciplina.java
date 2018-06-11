@@ -5,6 +5,19 @@
  */
 package br.edu.ifg.escolaAprender.frame;
 
+import br.edu.ifg.escolaAprender.util.BancoDeDados;
+import br.edu.ifg.escolaAprender.vo.Aluno;
+import br.edu.ifg.escolaAprender.vo.Disciplina;
+import br.edu.ifg.escolaAprender.vo.Professor;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.xml.crypto.Data;
+
 /**
  *
  * @author gilberto
@@ -17,6 +30,8 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
     public FrmCadDisciplina() {
         initComponents();
         setLocationRelativeTo(null);
+        ComboBoxModel boxModel = new DefaultComboBoxModel(BancoDeDados.getDisciplinas().toArray());
+        selecionaProf.setModel(boxModel);
     }
 
     /**
@@ -29,7 +44,7 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
     private void initComponents() {
 
         nomeDisc = new javax.swing.JLabel();
-        campoNome = new javax.swing.JTextField();
+        tfNomeDisc = new javax.swing.JTextField();
         profDisc = new javax.swing.JLabel();
         selecionaProf = new javax.swing.JComboBox<>();
         semestreDisc = new javax.swing.JLabel();
@@ -37,10 +52,10 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
         anoDisc = new javax.swing.JLabel();
         campoAno = new javax.swing.JTextField();
         salvar = new javax.swing.JButton();
-        cancelar = new javax.swing.JButton();
+        limpar = new javax.swing.JButton();
         inserirAluno = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        tfCodDisc = new javax.swing.JTextField();
 
         setTitle("Cadastro de Disciplina");
 
@@ -70,12 +85,27 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
                 campoAnoActionPerformed(evt);
             }
         });
+        campoAno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campoAnoKeyTyped(evt);
+            }
+        });
 
         salvar.setText("Salvar");
         salvar.setMaximumSize(new java.awt.Dimension(60, 30));
         salvar.setMinimumSize(new java.awt.Dimension(60, 30));
+        salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarActionPerformed(evt);
+            }
+        });
 
-        cancelar.setText("Cancelar");
+        limpar.setText("Limpar");
+        limpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limparActionPerformed(evt);
+            }
+        });
 
         inserirAluno.setText("Inserir Aluno");
         inserirAluno.addActionListener(new java.awt.event.ActionListener() {
@@ -85,6 +115,12 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
         });
 
         jLabel1.setText("Código:");
+
+        tfCodDisc.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tfCodDiscKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,19 +134,15 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
                         .addGap(48, 48, 48)
                         .addComponent(inserirAluno)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                        .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(limpar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nomeDisc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoNome))
+                        .addComponent(tfNomeDisc))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(profDisc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(selecionaProf, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(semestreDisc)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campoSemestre))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -120,7 +152,11 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tfCodDisc, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(semestreDisc)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campoSemestre, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -130,11 +166,11 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfCodDisc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomeDisc)
-                    .addComponent(campoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfNomeDisc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(profDisc)
@@ -150,7 +186,7 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelar)
+                    .addComponent(limpar)
                     .addComponent(inserirAluno))
                 .addContainerGap())
         );
@@ -167,13 +203,47 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
     }//GEN-LAST:event_campoSemestreActionPerformed
 
     private void campoAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoAnoActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_campoAnoActionPerformed
 
     private void inserirAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirAlunoActionPerformed
         FrmInserirAluno inserirAluno = new FrmInserirAluno();
         inserirAluno.setVisible(true);
     }//GEN-LAST:event_inserirAlunoActionPerformed
+
+    private void tfCodDiscKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCodDiscKeyTyped
+        if(!Character.isDigit(evt.getKeyChar())){
+            evt.consume();
+        }
+    }//GEN-LAST:event_tfCodDiscKeyTyped
+
+    private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
+                
+        Disciplina disc = new Disciplina();
+            
+        String nome = tfNomeDisc.getText();
+        Professor prof = (Professor) selecionaProf.getSelectedItem();
+        
+        disc.setCodigo(Integer.parseInt(tfCodDisc.getText()));
+        disc.setNome(tfNomeDisc.getText());
+        disc.setProfessor(prof);
+        disc.setSemestre(Integer.parseInt(campoSemestre.getText()));
+        disc.setAno(Integer.parseInt(campoAno.getText()));
+        BancoDeDados.adicionarDisciplinas(disc);
+        limparCampos();
+        JOptionPane.showMessageDialog(rootPane, nome + " adicionado com sucesso!");
+        
+    }//GEN-LAST:event_salvarActionPerformed
+
+    private void limparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_limparActionPerformed
+
+    private void campoAnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoAnoKeyTyped
+        if(!Character.isDigit(evt.getKeyChar())){
+            evt.consume();
+        }
+    }//GEN-LAST:event_campoAnoKeyTyped
 
     /**
      * @param args the command line arguments
@@ -214,16 +284,23 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel anoDisc;
     private javax.swing.JTextField campoAno;
-    private javax.swing.JTextField campoNome;
     private javax.swing.JTextField campoSemestre;
-    private javax.swing.JButton cancelar;
     private javax.swing.JButton inserirAluno;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton limpar;
     private javax.swing.JLabel nomeDisc;
     private javax.swing.JLabel profDisc;
     private javax.swing.JButton salvar;
     private javax.swing.JComboBox<String> selecionaProf;
     private javax.swing.JLabel semestreDisc;
+    private javax.swing.JTextField tfCodDisc;
+    private javax.swing.JTextField tfNomeDisc;
     // End of variables declaration//GEN-END:variables
+
+    private void limparCampos() {
+        tfCodDisc.setText("");
+        tfNomeDisc.setText("");
+        campoSemestre.setText("");
+        campoAno.setText("");
+    }
 }

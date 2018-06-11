@@ -5,6 +5,15 @@
  */
 package br.edu.ifg.escolaAprender.frame;
 
+import br.edu.ifg.escolaAprender.util.BancoDeDados;
+import br.edu.ifg.escolaAprender.vo.Funcionario;
+import br.edu.ifg.escolaAprender.vo.Professor;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author gilberto
@@ -36,11 +45,19 @@ public class FrmCadProfessor extends javax.swing.JFrame {
         campCod = new javax.swing.JTextField();
         campNome = new javax.swing.JTextField();
         campDataNasc = new javax.swing.JTextField();
+        try{
+            javax.swing.text.MaskFormatter data= new javax.swing.text.MaskFormatter("##/##/####");
+            campDataNasc = new javax.swing.JFormattedTextField(data);
+        }
+        catch (Exception e){
+        }
         campEnd = new javax.swing.JTextField();
         salvar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
         areaEspecProf = new javax.swing.JLabel();
         campAreaEspe = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        campSetor = new javax.swing.JTextField();
 
         setTitle("Cadastro de Professor");
 
@@ -52,13 +69,42 @@ public class FrmCadProfessor extends javax.swing.JFrame {
 
         respProf.setText("Endereço:");
 
+        campCod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campCodActionPerformed(evt);
+            }
+        });
+        campCod.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                campCodKeyTyped(evt);
+            }
+        });
+
         salvar.setText("Salvar");
         salvar.setMaximumSize(new java.awt.Dimension(60, 30));
         salvar.setMinimumSize(new java.awt.Dimension(60, 30));
+        salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarActionPerformed(evt);
+            }
+        });
 
-        cancelar.setText("Cancelar");
+        cancelar.setText("Limpar");
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarActionPerformed(evt);
+            }
+        });
 
         areaEspecProf.setText("Área de Especialização:");
+
+        jLabel1.setText("Setor:");
+
+        campSetor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campSetorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,26 +118,32 @@ public class FrmCadProfessor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(campNome))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(dataNascProf)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campDataNasc))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(respProf)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(campEnd))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(codProf)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campCod, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(salvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(campSetor))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(codProf)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campCod, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(dataNascProf)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(campDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(areaEspecProf)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(campAreaEspe)))
+                        .addComponent(campAreaEspe, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -115,8 +167,12 @@ public class FrmCadProfessor extends javax.swing.JFrame {
                     .addComponent(campEnd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(campAreaEspe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(areaEspecProf))
+                    .addComponent(campSetor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(areaEspecProf)
+                    .addComponent(campAreaEspe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salvar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -126,6 +182,47 @@ public class FrmCadProfessor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void campSetorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campSetorActionPerformed
+
+    }//GEN-LAST:event_campSetorActionPerformed
+
+    private void campCodKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campCodKeyTyped
+                if(!Character.isDigit(evt.getKeyChar())){
+            evt.consume();
+        }
+    }//GEN-LAST:event_campCodKeyTyped
+
+    private void campCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campCodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campCodActionPerformed
+
+    private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
+              
+        Professor prof = new Professor();
+        
+        String nome = campNome.getText();
+            
+        SimpleDateFormat formatData = new SimpleDateFormat("dd/mm/yyyy");
+        
+        prof.setCodigo(Integer.parseInt(campCod.getText()));
+        prof.setNome(campNome.getText());
+        try {
+            prof.setDataNascimento(formatData.parse(campDataNasc.getText()));
+        } catch (ParseException ex) {
+            Logger.getLogger(FrmCadAluno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        prof.setEndereco(campEnd.getText());
+        prof.setSetor(campSetor.getText());
+        prof.setFuncao(campAreaEspe.getText());
+        BancoDeDados.adicionarProfessores(prof);
+        limparCampos();
+        JOptionPane.showMessageDialog(rootPane, nome + " adicionado com sucesso!");
+    }//GEN-LAST:event_salvarActionPerformed
+
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_cancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,13 +250,7 @@ public class FrmCadProfessor extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmCadProfessor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -176,11 +267,22 @@ public class FrmCadProfessor extends javax.swing.JFrame {
     private javax.swing.JTextField campDataNasc;
     private javax.swing.JTextField campEnd;
     private javax.swing.JTextField campNome;
+    private javax.swing.JTextField campSetor;
     private javax.swing.JButton cancelar;
     private javax.swing.JLabel codProf;
     private javax.swing.JLabel dataNascProf;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel nomeProf;
     private javax.swing.JLabel respProf;
     private javax.swing.JButton salvar;
     // End of variables declaration//GEN-END:variables
+
+    private void limparCampos() {
+        campCod.setText("");
+        campNome.setText("");
+        campDataNasc.setText("");
+        campEnd.setText("");
+        campSetor.setText("");
+        campAreaEspe.setText("");
+    }
 }

@@ -41,6 +41,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         disciplina = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         consAluno = new javax.swing.JMenuItem();
+        consFunc = new javax.swing.JMenuItem();
+        consProf = new javax.swing.JMenuItem();
+        consDisc = new javax.swing.JMenuItem();
         opcoes = new javax.swing.JMenu();
         sair = new javax.swing.JMenuItem();
 
@@ -101,6 +104,30 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(consAluno);
 
+        consFunc.setText("Funcionario");
+        consFunc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consFuncActionPerformed(evt);
+            }
+        });
+        jMenu3.add(consFunc);
+
+        consProf.setText("Professor");
+        consProf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consProfActionPerformed(evt);
+            }
+        });
+        jMenu3.add(consProf);
+
+        consDisc.setText("Disciplina");
+        consDisc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                consDiscActionPerformed(evt);
+            }
+        });
+        jMenu3.add(consDisc);
+
         jMenuBar1.add(jMenu3);
 
         opcoes.setText("Opções");
@@ -132,8 +159,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void funcionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_funcionarioActionPerformed
-        FrmCadFuncionario cadFuncionario = new FrmCadFuncionario();
-        cadFuncionario.setVisible(true);
+        FrmContext.showfrmCadFunc();
     }//GEN-LAST:event_funcionarioActionPerformed
 
     private void sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairActionPerformed
@@ -145,18 +171,28 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cadAlunoActionPerformed
 
     private void professorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_professorActionPerformed
-        FrmCadProfessor cadProfessor = new FrmCadProfessor();
-        cadProfessor.setVisible(true);
+        FrmContext.showfrmCadProf();
     }//GEN-LAST:event_professorActionPerformed
 
     private void disciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disciplinaActionPerformed
-        FrmCadDisciplina cadDisciplina = new FrmCadDisciplina();
-        cadDisciplina.setVisible(true);
+        FrmContext.showfrmCadDisc();
     }//GEN-LAST:event_disciplinaActionPerformed
 
     private void consAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consAlunoActionPerformed
         FrmContext.showfrmConsAluno();
     }//GEN-LAST:event_consAlunoActionPerformed
+
+    private void consFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consFuncActionPerformed
+        FrmContext.showfrmConsFunc();
+    }//GEN-LAST:event_consFuncActionPerformed
+
+    private void consProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consProfActionPerformed
+        FrmContext.showfrmConsProf();
+    }//GEN-LAST:event_consProfActionPerformed
+
+    private void consDiscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_consDiscActionPerformed
+        FrmContext.showfrmConsDisc();
+    }//GEN-LAST:event_consDiscActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,6 +233,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu Cadastro;
     private javax.swing.JMenuItem cadAluno;
     private javax.swing.JMenuItem consAluno;
+    private javax.swing.JMenuItem consDisc;
+    private javax.swing.JMenuItem consFunc;
+    private javax.swing.JMenuItem consProf;
     private javax.swing.JMenuItem disciplina;
     private javax.swing.JMenuItem funcionario;
     private javax.swing.JMenu jMenu1;

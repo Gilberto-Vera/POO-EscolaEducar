@@ -20,6 +20,9 @@ public class BancoDeDados {
 
     static{
         alunos = new ArrayList();
+        funcionarios = new ArrayList();
+        professores = new ArrayList();
+        disciplinas = new ArrayList();
     }
 
     /**
@@ -46,8 +49,8 @@ public class BancoDeDados {
     /**
      * @param aFuncionarios the funcionarios to set
      */
-    public static void setFuncionarios(List<Funcionario> aFuncionarios) {
-        funcionarios = aFuncionarios;
+    public static void adicionarFuncionarios(Funcionario funcionario) {
+        funcionarios.add(funcionario);
     }
 
     /**
@@ -60,8 +63,8 @@ public class BancoDeDados {
     /**
      * @param aProfessores the professores to set
      */
-    public static void setProfessores(List<Professor> aProfessores) {
-        professores = aProfessores;
+    public static void adicionarProfessores(Professor professor) {
+        professores.add(professor);
     }
 
     /**
@@ -74,7 +77,7 @@ public class BancoDeDados {
     /**
      * @param aDisciplinas the disciplinas to set
      */
-    public static void setDisciplinas(List<Disciplina> aDisciplinas) {
-        disciplinas = aDisciplinas;
+    public static void adicionarDisciplinas(Disciplina disciplina) {
+        disciplinas.add(disciplina);
     }
 }

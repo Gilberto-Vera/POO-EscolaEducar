@@ -5,6 +5,8 @@
  */
 package br.edu.ifg.escolaAprender.vo;
 
+import java.util.Date;
+
 /**
  *
  * @author gilberto
@@ -13,6 +15,18 @@ public class Funcionario extends Pessoa {
     
     private String setor;
     private String funcao;
+    
+    public Funcionario(){
+    }
+    
+    public Funcionario(int codigo, String nome, Date dataNascimento, String endereco, String responsavel, String setor, String funcao){
+        this.codigo = codigo;
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.endereco = endereco;
+        this.setor = setor;
+        this.funcao = funcao;
+    }
 
     /**
      * @return the setor
