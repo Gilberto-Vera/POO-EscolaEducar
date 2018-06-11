@@ -4,7 +4,6 @@ import br.edu.ifg.escolaAprender.util.BancoDeDados;
 import br.edu.ifg.escolaAprender.vo.Aluno;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -186,7 +185,7 @@ public class FrmCadAluno extends javax.swing.JFrame {
         BancoDeDados.adicionarAluno(aluno);
         limparCampos();
         JOptionPane.showMessageDialog(rootPane, nome + " adicionado com sucesso!");
-                
+        tfCodAluno.requestFocus();
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void tfDataNascAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDataNascAlunoActionPerformed

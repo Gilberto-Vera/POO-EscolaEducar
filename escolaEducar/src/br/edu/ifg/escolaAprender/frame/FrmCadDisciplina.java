@@ -6,17 +6,12 @@
 package br.edu.ifg.escolaAprender.frame;
 
 import br.edu.ifg.escolaAprender.util.BancoDeDados;
-import br.edu.ifg.escolaAprender.vo.Aluno;
+import br.edu.ifg.escolaAprender.util.FrmContext;
 import br.edu.ifg.escolaAprender.vo.Disciplina;
 import br.edu.ifg.escolaAprender.vo.Professor;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.xml.crypto.Data;
 
 /**
  *
@@ -30,7 +25,7 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
     public FrmCadDisciplina() {
         initComponents();
         setLocationRelativeTo(null);
-        ComboBoxModel boxModel = new DefaultComboBoxModel(BancoDeDados.getDisciplinas().toArray());
+        ComboBoxModel boxModel = new DefaultComboBoxModel(BancoDeDados.getProfessores().toArray());
         selecionaProf.setModel(boxModel);
     }
 
@@ -46,7 +41,7 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
         nomeDisc = new javax.swing.JLabel();
         tfNomeDisc = new javax.swing.JTextField();
         profDisc = new javax.swing.JLabel();
-        selecionaProf = new javax.swing.JComboBox<>();
+        selecionaProf = new javax.swing.JComboBox();
         semestreDisc = new javax.swing.JLabel();
         campoSemestre = new javax.swing.JTextField();
         anoDisc = new javax.swing.JLabel();
@@ -63,7 +58,7 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
 
         profDisc.setText("Professor:");
 
-        selecionaProf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selecionaProf.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         selecionaProf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selecionaProfActionPerformed(evt);
@@ -195,7 +190,7 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selecionaProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionaProfActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_selecionaProfActionPerformed
 
     private void campoSemestreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoSemestreActionPerformed
@@ -207,8 +202,7 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
     }//GEN-LAST:event_campoAnoActionPerformed
 
     private void inserirAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirAlunoActionPerformed
-        FrmInserirAluno inserirAluno = new FrmInserirAluno();
-        inserirAluno.setVisible(true);
+        FrmContext.showfrmInsAluno();
     }//GEN-LAST:event_inserirAlunoActionPerformed
 
     private void tfCodDiscKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCodDiscKeyTyped
@@ -232,6 +226,7 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
         BancoDeDados.adicionarDisciplinas(disc);
         limparCampos();
         JOptionPane.showMessageDialog(rootPane, nome + " adicionado com sucesso!");
+        tfCodDisc.requestFocus();
         
     }//GEN-LAST:event_salvarActionPerformed
 
@@ -291,7 +286,7 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
     private javax.swing.JLabel nomeDisc;
     private javax.swing.JLabel profDisc;
     private javax.swing.JButton salvar;
-    private javax.swing.JComboBox<String> selecionaProf;
+    private javax.swing.JComboBox selecionaProf;
     private javax.swing.JLabel semestreDisc;
     private javax.swing.JTextField tfCodDisc;
     private javax.swing.JTextField tfNomeDisc;
@@ -300,6 +295,7 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
     private void limparCampos() {
         tfCodDisc.setText("");
         tfNomeDisc.setText("");
+        selecionaProf.setSelectedIndex(0);
         campoSemestre.setText("");
         campoAno.setText("");
     }

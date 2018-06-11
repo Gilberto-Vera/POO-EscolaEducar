@@ -13,6 +13,7 @@ import br.edu.ifg.escolaAprender.frame.FrmConsAluno;
 import br.edu.ifg.escolaAprender.frame.FrmConsDisciplina;
 import br.edu.ifg.escolaAprender.frame.FrmConsFuncionario;
 import br.edu.ifg.escolaAprender.frame.FrmConsProfessor;
+import br.edu.ifg.escolaAprender.frame.FrmInserirAluno;
 
 /**
  *
@@ -27,6 +28,7 @@ public class FrmContext {
     private static FrmConsProfessor frmConsProf;
     private static FrmCadDisciplina frmCadDisc;
     private static FrmConsDisciplina frmConsDisc;
+    private static FrmInserirAluno frmInsAluno;
     
     public static void showFrmCadAluno(){
         if(frmCadAluno == null)
@@ -74,5 +76,11 @@ public class FrmContext {
         if(frmConsDisc == null)
             frmConsDisc = new FrmConsDisciplina();
         frmConsDisc.setVisible(true);
+    }
+    
+    public static void showfrmInsAluno(){
+        if(frmInsAluno == null)
+            frmInsAluno = new FrmInserirAluno();
+        frmInsAluno.setVisible(true);
     }
 }

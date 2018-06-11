@@ -191,6 +191,7 @@ public class FrmCadFuncionario extends javax.swing.JFrame {
         BancoDeDados.adicionarFuncionarios(funcionario);
         limparCampos();
         JOptionPane.showMessageDialog(rootPane, nome + " adicionado com sucesso!");
+        campCodFunc.requestFocus();
         
     }//GEN-LAST:event_salvarActionPerformed
 

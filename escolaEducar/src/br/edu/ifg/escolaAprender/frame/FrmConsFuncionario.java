@@ -90,6 +90,8 @@ public class FrmConsFuncionario extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblConsFunc = new javax.swing.JTable();
 
+        setTitle("Consulta de Funcionario");
+
         tblConsFunc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

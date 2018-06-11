@@ -38,6 +38,8 @@ public class FrmConsProfessor extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblConsProf = new javax.swing.JTable();
 
+        setTitle("Consulta de Professor");
+
         tblConsProf.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

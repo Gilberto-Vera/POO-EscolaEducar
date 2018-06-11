@@ -6,7 +6,6 @@
 package br.edu.ifg.escolaAprender.frame;
 
 import br.edu.ifg.escolaAprender.util.BancoDeDados;
-import br.edu.ifg.escolaAprender.vo.Funcionario;
 import br.edu.ifg.escolaAprender.vo.Professor;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -218,6 +217,7 @@ public class FrmCadProfessor extends javax.swing.JFrame {
         BancoDeDados.adicionarProfessores(prof);
         limparCampos();
         JOptionPane.showMessageDialog(rootPane, nome + " adicionado com sucesso!");
+        campCod.requestFocus();
     }//GEN-LAST:event_salvarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed

@@ -23,6 +23,8 @@ public class BancoDeDados {
         funcionarios = new ArrayList();
         professores = new ArrayList();
         disciplinas = new ArrayList();
+        
+        //alunos.add(new Aluno(1,"Gilberto",28031979 , "Rua Onix", "Meu Pai"));
     }
 
     /**
