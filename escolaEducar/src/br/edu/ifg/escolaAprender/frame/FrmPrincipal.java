@@ -53,7 +53,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jMenuBar2.add(jMenu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setExtendedState(6);
         setFocusCycleRoot(false);
 
         Cadastro.setText("Cadastro");

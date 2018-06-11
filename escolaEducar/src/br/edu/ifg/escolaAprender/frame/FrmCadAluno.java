@@ -161,23 +161,26 @@ public class FrmCadAluno extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+        
+        Aluno aluno = new Aluno();
             
+        String nome = tfNomeAluno.getText();
+            
+        SimpleDateFormat formatData = new SimpleDateFormat("dd/mm/yyyy");
+        
+        aluno.setCodigo(Integer.parseInt(tfCodAluno.getText()));
+        aluno.setNome(tfNomeAluno.getText());
         try {
-            //Cria o objeto aluno que será adicionado a lista na classe banco
-            Aluno aluno = new Aluno();
-            SimpleDateFormat formatData = new SimpleDateFormat("dd/mm/yyyy");
-            
-            int codigo = Integer.parseInt(tfCodAluno.getText());
-            String nome = tfNomeAluno.getText();
-            Date dataNasc = formatData.parse(tfDataNascAluno.getText());
-            String respon = tfRespAluno.getText();
-            BancoDeDados.adicionarAluno(new Aluno(codigo, nome, dataNasc, nome, respon));
-            limparCampos();
-            JOptionPane.showMessageDialog(rootPane, nome + " adicionado com sucesso!");
+            aluno.setDataNascimento(formatData.parse(tfDataNascAluno.getText()));
         } catch (ParseException ex) {
             Logger.getLogger(FrmCadAluno.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        aluno.setEndereco(tfEndAluno.getText());
+        aluno.setResponsavel(tfRespAluno.getText());
+        BancoDeDados.adicionarAluno(aluno);
+        limparCampos();
+        JOptionPane.showMessageDialog(rootPane, nome + " adicionado com sucesso!");
+                
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void tfDataNascAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfDataNascAlunoActionPerformed

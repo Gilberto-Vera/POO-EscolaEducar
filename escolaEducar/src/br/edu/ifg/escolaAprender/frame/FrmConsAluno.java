@@ -24,6 +24,18 @@ public class FrmConsAluno extends javax.swing.JFrame {
     public final void carregarLista(){
         TableModel modeloDadosAluno = new AbstractTableModel() {
             private List<Aluno> alunos = BancoDeDados.getAlunos();
+            private String[] colunas = new String[]{"Matrícula", "Nome", "Data de Nasc.", "Endereço", "Responsável"};
+            
+            @Override
+            public int getRowCount() {
+                return alunos.size();
+            }
+
+            @Override
+            public int getColumnCount() {
+                return 5;
+            }
+            
             @Override
                 public Object getValueAt(int rowIndex, int columnIndex) {
                     Object valorCelula = null;
@@ -46,16 +58,12 @@ public class FrmConsAluno extends javax.swing.JFrame {
                     }
                     return valorCelula;
                 }
-
+                
             @Override
-            public int getRowCount() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            public String getColumnName(int column) {
+                return colunas[column];
             }
 
-            @Override
-            public int getColumnCount() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
         };
         tblConsAluno.setModel(modeloDadosAluno);
         
