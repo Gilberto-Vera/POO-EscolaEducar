@@ -2,6 +2,8 @@ package br.edu.ifg.escolaAprender.frame;
 
 import br.edu.ifg.escolaAprender.util.BancoDeDados;
 import br.edu.ifg.escolaAprender.vo.Aluno;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractListModel;
@@ -19,23 +21,51 @@ public class FrmInserirAluno extends javax.swing.JFrame {
     public FrmInserirAluno() {
         initComponents();
         setLocationRelativeTo(null);
-        List<Aluno> alunos = BancoDeDados.getAlunos();
-//        alunos.add(new Aluno(1, "Joao", null, null, null));
-//        alunos.add(new Aluno(1, "Pedro", null, null, null));
-//        alunos.add(new Aluno(1, "Rodrigo", null, null, null));
-        ListModel<Aluno> model = new AbstractListModel<Aluno>() {
-            
+
+        addWindowListener(new WindowListener() {
             @Override
-            public int getSize() {
-                return alunos.size();
+            public void windowOpened(WindowEvent e) {
             }
 
             @Override
-            public Aluno getElementAt(int index) {
-                return alunos.get(index);
+            public void windowClosing(WindowEvent e) {
             }
-        };
-        jList1.setModel(model);
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+                List<Aluno> alunos = BancoDeDados.getAlunos();
+                ListModel<Aluno> model = new AbstractListModel<Aluno>() {
+
+                    @Override
+                    public int getSize() {
+                        return alunos.size();
+                    }
+
+                    @Override
+                    public Aluno getElementAt(int index) {
+                        return alunos.get(index);
+                    }
+                };
+                jList1.setModel(model);
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+        });
+
     }
 
     /**
@@ -163,7 +193,7 @@ public class FrmInserirAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-      
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
 

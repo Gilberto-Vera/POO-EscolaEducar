@@ -2,6 +2,8 @@ package br.edu.ifg.escolaAprender.frame;
 
 import br.edu.ifg.escolaAprender.util.BancoDeDados;
 import br.edu.ifg.escolaAprender.vo.Aluno;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -19,14 +21,44 @@ public class FrmConsAluno extends javax.swing.JFrame {
     public FrmConsAluno() {
         initComponents();
         setLocationRelativeTo(null);
-        carregarLista();
+
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+                carregarLista();
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+        });
     }
-    
-    public final void carregarLista(){
+
+    public final void carregarLista() {
         TableModel modeloDadosAluno = new AbstractTableModel() {
             private List<Aluno> alunos = BancoDeDados.getAlunos();
             private String[] colunas = new String[]{"Matrícula", "Nome", "Data de Nasc.", "Endereço", "Responsável"};
-            
+
             @Override
             public int getRowCount() {
                 return alunos.size();
@@ -36,30 +68,30 @@ public class FrmConsAluno extends javax.swing.JFrame {
             public int getColumnCount() {
                 return 5;
             }
-            
+
             @Override
-                public Object getValueAt(int rowIndex, int columnIndex) {
-                    Object valorCelula = null;
-                    switch(columnIndex) {
-                        case 0:
-                            valorCelula = alunos.get(rowIndex).getCodigo();
-                            break;
-                        case 1:
-                            valorCelula = alunos.get(rowIndex).getNome();
-                            break;
-                        case 2:
-                            valorCelula = alunos.get(rowIndex).getDataNascimento();
-                            break;
-                        case 3:
-                            valorCelula = alunos.get(rowIndex).getEndereco();
-                            break;
-                        case 4:
-                            valorCelula = alunos.get(rowIndex).getResponsavel();
-                            break;
-                    }
-                    return valorCelula;
+            public Object getValueAt(int rowIndex, int columnIndex) {
+                Object valorCelula = null;
+                switch (columnIndex) {
+                    case 0:
+                        valorCelula = alunos.get(rowIndex).getCodigo();
+                        break;
+                    case 1:
+                        valorCelula = alunos.get(rowIndex).getNome();
+                        break;
+                    case 2:
+                        valorCelula = alunos.get(rowIndex).getDataNascimento();
+                        break;
+                    case 3:
+                        valorCelula = alunos.get(rowIndex).getEndereco();
+                        break;
+                    case 4:
+                        valorCelula = alunos.get(rowIndex).getResponsavel();
+                        break;
                 }
-                
+                return valorCelula;
+            }
+
             @Override
             public String getColumnName(int column) {
                 return colunas[column];
@@ -67,7 +99,7 @@ public class FrmConsAluno extends javax.swing.JFrame {
 
         };
         tblConsAluno.setModel(modeloDadosAluno);
-        
+
     }
 
     /**
