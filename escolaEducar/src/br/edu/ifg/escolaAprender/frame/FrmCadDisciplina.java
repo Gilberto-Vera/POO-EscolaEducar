@@ -9,6 +9,8 @@ import br.edu.ifg.escolaAprender.util.BancoDeDados;
 import br.edu.ifg.escolaAprender.util.FrmContext;
 import br.edu.ifg.escolaAprender.vo.Disciplina;
 import br.edu.ifg.escolaAprender.vo.Professor;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -25,8 +27,38 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
     public FrmCadDisciplina() {
         initComponents();
         setLocationRelativeTo(null);
-        ComboBoxModel boxModel = new DefaultComboBoxModel(BancoDeDados.getProfessores().toArray());
-        selecionaProf.setModel(boxModel);
+
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+                ComboBoxModel boxModel = new DefaultComboBoxModel(BancoDeDados.getProfessores().toArray());
+                selecionaProf.setModel(boxModel);
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+            }
+        });
     }
 
     /**
@@ -60,16 +92,6 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
         profDisc.setText("Professor:");
 
         selecionaProf.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione" }));
-        selecionaProf.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                selecionaProfMouseClicked(evt);
-            }
-        });
-        selecionaProf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                selecionaProfActionPerformed(evt);
-            }
-        });
 
         semestreDisc.setText("Semestre:");
 
@@ -189,19 +211,19 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
     }//GEN-LAST:event_inserirAlunoActionPerformed
 
     private void tfCodDiscKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfCodDiscKeyTyped
-        if(!Character.isDigit(evt.getKeyChar())){
+        if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
     }//GEN-LAST:event_tfCodDiscKeyTyped
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
-                
+
         Disciplina disc = new Disciplina();
-        
+
         String nome = tfNomeDisc.getText();
-        
+
         Professor prof = (Professor) selecionaProf.getSelectedItem();
-        
+
         disc.setCodigo(Integer.parseInt(tfCodDisc.getText()));
         disc.setNome(tfNomeDisc.getText());
         disc.setProfessor(prof);
@@ -211,7 +233,7 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
         limparCampos();
         JOptionPane.showMessageDialog(rootPane, nome + " adicionado com sucesso!");
         tfCodDisc.requestFocus();
-        
+
     }//GEN-LAST:event_salvarActionPerformed
 
     private void limparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparActionPerformed
@@ -219,17 +241,10 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
     }//GEN-LAST:event_limparActionPerformed
 
     private void campoAnoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoAnoKeyTyped
-        if(!Character.isDigit(evt.getKeyChar())){
+        if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
     }//GEN-LAST:event_campoAnoKeyTyped
-
-    private void selecionaProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionaProfActionPerformed
-    }//GEN-LAST:event_selecionaProfActionPerformed
-
-    private void selecionaProfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selecionaProfMouseClicked
-
-    }//GEN-LAST:event_selecionaProfMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel anoDisc;
