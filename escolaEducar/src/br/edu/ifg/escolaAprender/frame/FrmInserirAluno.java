@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifg.escolaAprender.frame;
 
+import br.edu.ifg.escolaAprender.util.BancoDeDados;
 import br.edu.ifg.escolaAprender.vo.Aluno;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractListModel;
-import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 
 /**
@@ -24,11 +19,12 @@ public class FrmInserirAluno extends javax.swing.JFrame {
     public FrmInserirAluno() {
         initComponents();
         setLocationRelativeTo(null);
-        List<Aluno> alunos = new ArrayList<>();
-        alunos.add(new Aluno(1, "Joao", null, null, null));
-        alunos.add(new Aluno(1, "Pedro", null, null, null));
-        alunos.add(new Aluno(1, "Rodrigo", null, null, null));
+        List<Aluno> alunos = BancoDeDados.getAlunos();
+//        alunos.add(new Aluno(1, "Joao", null, null, null));
+//        alunos.add(new Aluno(1, "Pedro", null, null, null));
+//        alunos.add(new Aluno(1, "Rodrigo", null, null, null));
         ListModel<Aluno> model = new AbstractListModel<Aluno>() {
+            
             @Override
             public int getSize() {
                 return alunos.size();
@@ -80,7 +76,12 @@ public class FrmInserirAluno extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Salvar");
+        jButton3.setText("Voltar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Limpar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -161,40 +162,10 @@ public class FrmInserirAluno extends javax.swing.JFrame {
         jList2.setModel(model);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmInserirAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmInserirAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmInserirAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmInserirAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+      
+    }//GEN-LAST:event_jButton3ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmInserirAluno().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

@@ -6,7 +6,6 @@
 package br.edu.ifg.escolaAprender.vo;
 
 import java.util.ArrayList;
-import javax.xml.crypto.Data;
 
 /**
  *

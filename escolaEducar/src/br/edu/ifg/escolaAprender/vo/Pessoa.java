@@ -1,5 +1,6 @@
 package br.edu.ifg.escolaAprender.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -7,6 +8,7 @@ import java.util.Date;
  * @author gilberto
  */
 public class Pessoa {
+    
     
     protected int codigo;
     protected String nome;
@@ -44,8 +46,9 @@ public class Pessoa {
     /**
      * @return the dataNascimento
      */
-    public Date getDataNascimento() {
-        return dataNascimento;
+    public String getDataNascimento() {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/mm/yyyy");
+        return formato.format(dataNascimento); //dataNascimento; 
     }
 
     /**

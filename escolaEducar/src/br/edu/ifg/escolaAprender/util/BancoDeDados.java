@@ -12,7 +12,7 @@ import java.util.List;
  * @author gilberto
  */
 public class BancoDeDados {
-    
+        
     private static List<Aluno> alunos;
     private static List<Funcionario> funcionarios;
     private static List<Professor> professores;
@@ -23,8 +23,6 @@ public class BancoDeDados {
         funcionarios = new ArrayList();
         professores = new ArrayList();
         disciplinas = new ArrayList();
-        
-        //alunos.add(new Aluno(1,"Gilberto",28031979 , "Rua Onix", "Meu Pai"));
     }
 
     /**

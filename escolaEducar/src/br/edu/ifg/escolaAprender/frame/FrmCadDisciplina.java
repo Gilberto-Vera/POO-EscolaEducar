@@ -52,13 +52,19 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         tfCodDisc = new javax.swing.JTextField();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Disciplina");
 
         nomeDisc.setText("Nome:");
 
         profDisc.setText("Professor:");
 
-        selecionaProf.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selecionaProf.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione" }));
+        selecionaProf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                selecionaProfMouseClicked(evt);
+            }
+        });
         selecionaProf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 selecionaProfActionPerformed(evt);
@@ -67,19 +73,8 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
 
         semestreDisc.setText("Semestre:");
 
-        campoSemestre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoSemestreActionPerformed(evt);
-            }
-        });
-
         anoDisc.setText("Ano:");
 
-        campoAno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoAnoActionPerformed(evt);
-            }
-        });
         campoAno.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 campoAnoKeyTyped(evt);
@@ -189,18 +184,6 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void selecionaProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionaProfActionPerformed
-
-    }//GEN-LAST:event_selecionaProfActionPerformed
-
-    private void campoSemestreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoSemestreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoSemestreActionPerformed
-
-    private void campoAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoAnoActionPerformed
-
-    }//GEN-LAST:event_campoAnoActionPerformed
-
     private void inserirAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirAlunoActionPerformed
         FrmContext.showfrmInsAluno();
     }//GEN-LAST:event_inserirAlunoActionPerformed
@@ -214,8 +197,9 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
                 
         Disciplina disc = new Disciplina();
-            
+        
         String nome = tfNomeDisc.getText();
+        
         Professor prof = (Professor) selecionaProf.getSelectedItem();
         
         disc.setCodigo(Integer.parseInt(tfCodDisc.getText()));
@@ -240,41 +224,12 @@ public class FrmCadDisciplina extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_campoAnoKeyTyped
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmCadDisciplina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmCadDisciplina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmCadDisciplina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmCadDisciplina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void selecionaProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecionaProfActionPerformed
+    }//GEN-LAST:event_selecionaProfActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrmCadDisciplina().setVisible(true);
-            }
-        });
-    }
+    private void selecionaProfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selecionaProfMouseClicked
+
+    }//GEN-LAST:event_selecionaProfMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel anoDisc;
