@@ -71,6 +71,7 @@ public class FrmConsDisciplina extends javax.swing.JFrame {
         tblConsDisc = new javax.swing.JTable();
 
         setTitle("Consulta de Disciplina");
+        setPreferredSize(new java.awt.Dimension(600, 300));
 
         tblConsDisc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

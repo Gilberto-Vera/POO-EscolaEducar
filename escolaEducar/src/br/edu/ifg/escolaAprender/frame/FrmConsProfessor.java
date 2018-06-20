@@ -71,6 +71,7 @@ public class FrmConsProfessor extends javax.swing.JFrame {
         tblConsProf = new javax.swing.JTable();
 
         setTitle("Consulta de Professor");
+        setPreferredSize(new java.awt.Dimension(600, 300));
 
         tblConsProf.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
