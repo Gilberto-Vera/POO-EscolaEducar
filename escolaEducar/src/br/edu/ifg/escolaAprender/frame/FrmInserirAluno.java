@@ -58,10 +58,12 @@ public class FrmInserirAluno extends javax.swing.JFrame {
                     }
                 };
                 jList1.setModel(model);
+                
             }
 
             @Override
             public void windowDeactivated(WindowEvent e) {
+                
             }
         });
 
@@ -153,8 +155,8 @@ public class FrmInserirAluno extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(jButton5)
                         .addGap(0, 73, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1)
-                    .addComponent(jScrollPane2))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(12, 12, 12)
                 .addComponent(jButton3)
                 .addContainerGap())
@@ -172,7 +174,7 @@ public class FrmInserirAluno extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        
         List<Aluno> alunosSelecionados = jList1.getSelectedValuesList();
         ListModel<Aluno> model = new AbstractListModel<Aluno>() {
             @Override
